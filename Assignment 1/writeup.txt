@@ -1,0 +1,15 @@
+
+In this problem, we are using local search strategy to solve this problem. We have followed the bottom up strategy for arranging the presentations in their appropriate sessions and slots by following the desirable attributes of a good schedule
+1. All presentations in one session should be on a single theme.
+2. All presentations in parallel sessions should be on themes as far away as possible to avoid conflict.
+Our local search strategy is following:
+We have calculated the similarity matrix from the distance matrix by subtacting each distance values from 1 by keeping the diagonal elements zero.
+We have randomly chosen one presentation (by default the first one). Now for this first presentation is (by default) has been put in the first session. 
+Arranging first session, we are adding the presentations which have maximum similarities from the presentations currently in the session.
+Arranging the second session, we are adding the presentations which are at maximum distance from the presentations from the first session.
+Arranging the third session(if any), we are adding the presentations which are at maximum distance from both first and second sessions and have maximum similarity from the presentations of the current session.
+Now we have repeated the same logic if there are any more remaining sessions.
+For putting the presentations in timeslots, we have put the sorted list of presentations in a session and arranging them in the slots.
+
+
+

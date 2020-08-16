@@ -1,0 +1,55 @@
+The AI Assignment-2 is combining the power of reasoning and machine learning algorithm, specificially clustering.
+There are two parts of this problem. The first one deals with unsupervised learning algorithm for clustering and the second part deals with 
+the logical inference based on the result of the clustering.
+
+K-means Clustering(Unsupervised learning algorithm):
+K-means clustering aims to converge on an optimal set of cluster centers (centroids) and cluster membership based on distance from these centroids
+via successive iterations. It is intuitive that the more optimal the positioning of these initial centroids, the fewer iterations of the k-means 
+clustering algorithms will be required for convergence.Therefore, thinking about ways to find a better set of initial centroid positions is a valid
+approach to optimizing the k-means clustering process.
+
+So we have applied K-means clustering on the full feature vectors according the following steps.
+Step 1 - Pick k(k=number of states) points randomly as cluster centers called centroids.
+Step 2 - Assign each point to nearest cluster by calculating its Euclidean distance to each centroid.
+Step 3 - Find new cluster center by taking the average of the assigned points.
+Step 4 - Repeat Step 2 and 3 until none of the cluster assignments change.
+
+This gives me the list of cluster centroids of diseases, habits and locations for each state.
+
+Now on the basis of these centroids, we have to check the states which are prone to which diseases. Also we need to look into with the habit data and
+check which habit leads to which diseases over a certain threshold value. For this we are going into the next part of logical inference.
+
+Logical Inference on the result of K-means algorithm:
+We are given a set of points which we would use for the logical inference. 
+
+1.Neighbouring states are prone to same diseases.That means the disease should propagate among neighboring states. 
+	Ex - If A is neighbour of B and B is neighbour of C, disease of C should propagate to A
+2.Difference in location indices of neighbouring states is less than the threshold_neighbour.
+3.If the disease index value is greater than threshold_disease the person/state is considered as prone to that particular disease.
+4.Certain habits leads to certain diseases.
+5.If the habit index value is smaller than threshold_habit the person/state is not considered to be habitual for that particular habit.
+6.If a state is not prone to any disease then the disease value is 0, since disease sequence is starting from 1
+
+These are the facts given and we have used the same for preparing a Knowledge base which would be helpful for solving the inference.
+We have used Forward Chaining method for inference which can be described logically as repeated application of modus ponens.
+
+Algorithm for intference:
+1. Iterate over each centroid values to get the diseases for each states if the threshold is greater than threshold_disease 
+2. Then iterate over the habit values to check if they are greater than threshold_habit and check from habit leads to disease data to find 
+if the particular habit leads to any disease and update the knowledge base.
+3. Repeat these two steps for all the states 
+4. Finally, we propagate the disease values of state C if A is neighbour of B and B is neighbour of C. 
+This will give the disease for each state as our final objective.
+
+Disjuctive Normal form for the algorithm used:
+( NEIGHBOUR(STATE_LIST, STATE1) AND DISEASE_PRONE(STATE,DISEASE) ) OR (DISEASE_PRONE(STATE,DISEASE)) OR ( DISEASE_PRONE(STATE,DISEASE) AND HABIT_DISEASE(HABIT,DISEASE)) => DISEASES(STATE,DISEASE)
+
+Where,
+1.DISEASES(STATE,DISEASE): Final output of diseases according to particular state
+2.NEIGHBOUR(STATE_LIST, STATE) : States which have location indices are withing a threshold_neighbour, they are neighbours to each other
+3.DISEASE_PRONE(STATE,DISEASE) :  Disease index value greater than threshold_disease leads to disease for a articular state
+4.HABIT_DISEASE(HABIT,DISEASE): Habit value may or may not lead to a disease if its value is greater than threshold_habit
+
+
+
+

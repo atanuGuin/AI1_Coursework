@@ -1,0 +1,10 @@
+Assignment 3 : Bayesian inference on the given data
+
+	In this assignment, we had to use Bayesian network which is a directed acyclic graphical representation of a set of variables and their conditional dependencies.
+Each variable is represented as a node in the graph and a directed edge between the nodes represents parent-child relationship between the considered nodes. 
+	We have estimated probability distributions	of parameters of a given network. The following steps are followed for solving this problem - 
+		1. From the first input file, we have created a dependency graph among the initial variables
+		2. Using the second input file, we have created the Bayesian network and calculated the independent probabilities of each initial variables
+		3. Now following the Bayesian network created earlier, we have found out all the possible combinations using Cartesian product
+		4. Finally, the result of this assignment is estimated probability distributions of all the combinations parameters created earlier
+	
